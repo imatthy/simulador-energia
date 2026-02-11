@@ -1,0 +1,224 @@
+﻿@page "/"
+@using SimuladorEnergiaWASM.Models;
+
+<PageTitle>Home</PageTitle>
+
+<h1>Simulador!</h1>
+
+<div style="display: flex; gap: 40px;">
+    <div>
+		<svg width="800" height="500" viewBox="0 0 800 500">
+			<style type="text/css">
+				.cenario-fundo {
+					fill: none;
+					stroke: #000;
+					stroke-width: 2;
+				}
+
+				.interativo {
+					fill: #fff;
+					stroke: #000;
+					stroke-width: 2;
+					cursor: pointer;
+					transition: fill 0.3s;
+				}
+					
+				.interativo:hover {
+					fill: #e0e0e0;
+				}
+
+			</style>
+			<g id="fundo">
+				<rect width="800" height="500" fill="white" />
+				<line x1="0" y1="450" x2="800" y2="450" stroke="black" stroke-width="2" />
+				<rect x="250" y="250" width="550" height="200" class="cenario-fundo" />
+				<rect x="250" y="50" width="300" height="150" class="cenario-fundo" />
+				<line x1="400" y1="50" x2="400" y2="200" stroke="black" stroke-width="2" />
+			</g>
+			<g class="interativo" @onclick='() => AbrirMenu("Geladeira")'>
+				<rect x="20" y="80" width="200" height="370" />
+				<line x1="120" y1="80" x2="120" y2="450" stroke="black" stroke-width="2" />
+				<rect x="100" y="200" width="15" height="80" fill="none" stroke="black" stroke-width="2" />
+				<rect x="125" y="200" width="15" height="80" fill="none" stroke="black" stroke-width="2" />
+			</g>
+			<g class="interativo" transform="matrix(1, 0, 0, 1, 335.45108, 168.996201)" @onclick='() => AbrirMenu("Coifa")'>
+				<g transform="matrix(1, 0, 0, 1, 0.635324, -0.635324)">
+					<rect x="367.331" y="-167.13" width="42.135" height="82.211"/>
+					<path d="M 366.582 -85.134 L 325.286 -40.026 L 454.257 -40.661 L 408.513 -84.499" />
+				</g>
+			</g>
+			<g class="interativo" @onclick='() => AbrirMenu("Air Fryer")'>
+				<rect x="280" y="170" width="94.142" height="80" style="" />
+				<rect x="280.121" y="155.045" width="94.142" height="15.197" style="stroke-width: 2;" />
+				<rect x="287.11" y="175.375" width="80.8" height="68.564" style="stroke-width: 2;" />
+				<rect x="322.954" y="188.26" width="12.681" height="50" fill="none" stroke="black" style="" />
+			</g>
+			<g class="interativo" @onclick='() => AbrirMenu("Torradeira")'>
+				<path d="M 400 250 L 400 200 Q 400 180 420 180 L 460 180 Q 480 180 480 200 L 480 250 Z" />
+				<rect x="420" y="185" width="15" height="5" fill="black" />
+				<rect x="445" y="185" width="15" height="5" fill="black" />
+				<rect x="485" y="210" width="10" height="20" fill="none" stroke="black" />
+			</g>
+			<g class="interativo" transform="matrix(1, 0, 0, 1, 143.583221, 0.635324)" @onclick='() => AbrirMenu("Fogão")'>
+				<rect x="500" y="250" width="150" height="200" />
+				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 213.574753, 145.80687)" />
+				<rect x="516.271" y="323.037" width="120" height="100" fill="none" stroke="black" />
+				<rect x="515.635" y="261.741" width="120" height="23.895" fill="none" stroke="black" style="" />
+				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 237.894958, 145.476547)" />
+				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 261.401947, 145.476547)" />
+				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 284.273621, 145.476547)" />
+				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 306.509949, 144.841232)" />
+			</g>
+			<g class="interativo" transform="matrix(1, 0, 0, 1, -141.041931, -29.860228)" @onclick='() => AbrirMenu("Microondas")'>
+				<rect x="650" y="200" width="120" height="80" />
+				<rect x="660" y="210" width="79.67" height="60" fill="none" stroke="black" style="" />
+				<rect x="723.824" y="219.682" width="7.878" height="41.576" fill="none" stroke="black" style="stroke-width: 2;" />
+				<rect x="746.379" y="214.282" width="15.502" height="51.741" fill="none" stroke="black" style="stroke-width: 2;" />
+			</g>
+			<g class="interativo" @onclick='() => AbrirMenu("Lâmpada")'>
+				<path d="M 452.669 23.507 L 479.035 65.438 L 426.303 65.438 L 452.669 23.507 Z" bx:shape="triangle 426.303 23.507 52.732 41.931 0.5 0 1@dfd6894b"/>
+				<path d="M 452.351 22.872 C 452.351 15.574 451.715 7.084 451.715 -0.635" />
+				<path d="M 428.844 72.427 C 426.351 76.167 413.596 86.347 413.596 89.581" />
+				<path d="M 438.374 75.604 C 436.957 81.27 434.562 86.166 434.562 92.122" />
+				<path d="M 449.809 76.874 C 449.809 84.286 449.809 91.698 449.809 99.111" />
+				<path d="M 458.704 77.51 C 460.747 81.595 464.422 94.064 464.422 98.475" />
+				<path d="M 465.057 77.51 C 470.521 82.974 472.456 93.168 477.764 98.475" />
+				<path d="M 474.587 74.968 C 477.847 79.315 479.799 84.247 482.846 88.31 C 484.009 89.861 489.835 93.891 489.835 95.299" />
+			</g>
+		</svg>
+
+
+		<div>
+			<h3>Itens adicionados:</h3>
+			<ul>
+				@foreach(var item in ItensCenario)
+				{
+					<li style="margin-top: 5px";>
+						Id: @item.Id - 
+						Nome: @item.Nome
+						Consumo: @item.Consumo (W) - 
+						Horas de uso/dia: @item.HorasUso 
+						Consumo Mensal: @item.CalculoKwh()kWh
+						Custo Indivídual do item: R$@Math.Round(item.CalculoCusto(), 2)
+						<button class="btn btn-danger btn-sm" @onclick='() => RemoveItem(item)'>
+							Remover Item
+						</button>
+					</li>
+				}
+			</ul>
+		</div>
+
+		@if (ItensCenario.Count() > 0)
+		{
+			<div>
+				<h3>Total:</h3>
+				<ul>
+					Consumo (1 mês): @TotalConsumoWatts() kWh
+					Consumo (1 dia): @TotalConsumoDiario() kWh
+					Custo (1 mês): R$@Math.Round(TotalCusto(), 2)
+					Custo (1 dia): R$@Math.Round(TotalCusto() / 30, 2)
+				</ul>
+			</div>
+		}
+
+		@if (MenuAberto)
+		{
+			<div class="modal" tabindex="-1" role="dialog" style="display:block; background-color: rgba(0,0,0,0.5)";>
+				<div class="modal-dialog" role="document">
+					<div class="modal_conteudo">
+						<div class="modal-header">
+							<h5 class="modal-title">Preencha as informações do aparelho.</h5>
+						</div>
+						<EditForm Model="@ItemTemp" OnValidSubmit="SalvarItem">
+							<DataAnnotationsValidator />
+								<div class="modal-preencher">
+									<h3>Adicionar (nome do objeto)</h3>
+
+										<label>Nome do Item:</label>
+										<InputText @bind-Value="ItemTemp.Nome"></InputText>
+
+										<label>Consumo em Watts do item:</label>
+										<InputNumber @bind-Value="ItemTemp.Consumo" 
+											min="1" 
+											max="50000" 
+											step="1"
+											class="form-control">
+										</InputNumber>
+
+										<label>Horas de uso por dia:</label>
+										<InputNumber @bind-Value="ItemTemp.HorasUso" 
+											min="0.01" 
+											max="24"
+											class="form-control"> 
+
+										</InputNumber>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" @onclick="Cancela">Cancelar</button>
+									<button type="submit">Salvar</button>
+								</div>
+
+						</EditForm>
+					</div>
+				</div>
+			</div>
+		}
+		
+	</div>
+</div>
+
+@code {
+	private List<ItemCenario> ItensCenario = new();
+	private ItemCenario ItemTemp = new();
+
+	bool MenuAberto = false;
+
+	void AbrirMenu(string NomeSugerido)
+	{
+		ItemTemp = new ItemCenario();
+		ItemTemp.Nome = NomeSugerido;
+		MenuAberto = true;
+	}
+
+	void SalvarItem()
+	{
+		int proxID = ItensCenario.Any() ? ItensCenario.Max(i => i.Id) + 1 : 1;
+		ItemTemp.Id = proxID;
+
+		ItensCenario.Add(ItemTemp);
+		ItemTemp = new();
+
+		MenuAberto = false;
+	}
+
+	void Cancela()
+	{
+		MenuAberto = false;
+	}
+
+	void RemoveItem(ItemCenario ItemParaRemover)
+	{
+		ItensCenario.Remove(ItemParaRemover);
+
+		for(int i = 0; i < ItensCenario.Count; i++)
+		{
+			ItensCenario[i].Id = i + 1;
+		}
+	}
+
+	public double TotalConsumoWatts()
+	{
+		return ItensCenario.Sum(item => item.Consumo);
+	}
+
+	public double TotalConsumoDiario()
+	{
+		return ItensCenario.Sum(item => item.Consumo * item.HorasUso);
+	}
+
+	public double TotalCusto()
+	{
+		return ItensCenario.Sum(item => item.CalculoCusto());
+	}
+}
