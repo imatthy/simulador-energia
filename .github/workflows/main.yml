@@ -24,13 +24,12 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '10.0.x' # Garanta que bate com a versão do seu projeto
+          dotnet-version: '10.0.x'
 
       - name: Publish .NET Project
         run: dotnet publish SimuladorEnergiaWASM/SimuladorEnergiaWASM.csproj -c Release -o release --nologo
 
-      # Corrige o base-href automaticamente para o nome do repositório
-      # (Isso dispensa você de editar o index.html manualmente!)
+
       - name: Change base-tag in index.html from / to /simulador-energia/
         run: sed -i 's/<base href="\/" \/>/<base href="\/simulador-energia\/" \/>/g' release/wwwroot/index.html
 
