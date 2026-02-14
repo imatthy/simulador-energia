@@ -11,15 +11,7 @@ namespace SimuladorEnergiaWASM.Models
         [Required]
         [Range(0.01, 24)]
         public float HorasUso { get; set; }
-        public float Tarifa = 0.73f;
 
-        public double CalculoKwh()
-        {
-            return (Consumo * HorasUso * 30) / 1000.0;
-        }
-        public double CalculoCusto()
-        {
-            return Math.Round(CalculoKwh() * Tarifa, 3);
-        }
+        public double CalculoKwh() => (Consumo * HorasUso * 30) / 1000.0;
     }
 }
