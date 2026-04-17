@@ -12,10 +12,29 @@
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="SimuladorEnergiaWASM.styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script type="importmap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 </head>
 
 <body>
+
+    <script>
+        window.renderizarLatex = (elemento) => {
+            if (window.renderMathInElement) {
+                window.renderMathInElement(elemento, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true }, // Para equações em bloco
+                        { left: "$", right: "$", display: false }   // Para equações na mesma linha
+                    ],
+                    throwOnError: false // Se o usuário digitar algo errado, ele não quebra a tela
+                });
+            }
+        };
+    </script>
+
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />

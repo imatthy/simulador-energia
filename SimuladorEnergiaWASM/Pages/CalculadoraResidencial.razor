@@ -124,8 +124,8 @@
 								<div class="mb-3">
 									<label class="form-label fw-bold">Nome do Item:</label>
 									<InputText @bind-Value="ItemTemp.Nome"
-										class="form-control"
-										placeholder="Ex: Geladeira, Ar condicionado...">
+											   class="form-control"
+											   placeholder="Ex: Geladeira, Ar condicionado...">
 									</InputText>
 								</div>
 
@@ -133,10 +133,10 @@
 									<label class="form-label fw-bold">Potência do item:</label>
 									<div class="input-group">
 										<InputNumber @bind-Value="ItemTemp.Consumo"
-											min="1"
-											max="50000"
-											step="1"
-											class="form-control">
+													 min="1"
+													 max="50000"
+													 step="1"
+													 class="form-control">
 										</InputNumber>
 										<span class="input-group-text">W</span>
 									</div>
@@ -145,10 +145,10 @@
 								<div class="mb-4">
 									<label class="form-label fw-bold">Tempo de Uso</label>
 									<div class="input-group">
-										<InputNumber @bind-Value="ItemTemp.HorasUso" 
-											min="0.01" 
-											max="24" 
-											class="form-control">
+										<InputNumber @bind-Value="ItemTemp.HorasUso"
+													 min="0.01"
+													 max="24"
+													 class="form-control">
 										</InputNumber>
 										<span class="input-group-text bg-light text-muted">h/dia</span>
 									</div>
@@ -168,7 +168,7 @@
 
 		@if (MenuConsumoAberto)
 		{
-			<div class="modal fade show" tabindex="-1" style="display:block; background-color: rgba(0,0,0,0.5);">
+			<div class="modal fade show" tabindex="-1" role="dialog" style="display:block; background-color: rgba(0,0,0,0.5);">
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -181,15 +181,14 @@
 
 						<div class="modal-body form-label fw-bold">
 							<label>Consumo:</label>
-
 							<div class="input-group">
-								<InputNumber @bind-value="ConsumoTemp"
+								<InputNumber @bind-Value="ConsumoTemp"
 											 class="form-control"
 											 min="0"
 											 max="10000"
 											 step="1">
 								</InputNumber>
-                                <span class="input-group-text">kWh/mês</span>
+								<span class="input-group-text">kWh/mês</span>
 							</div>
 						</div>
 
@@ -204,77 +203,126 @@
 
 		@if (MenuPainelAberto)
 		{
-			<div class="modal" tabindex="-1" style="display:block; background-color: rgba(0,0,0,0.5);">
-				<div class="modal-dialog">
+			<div class="modal fade show" tabindex="-1" style="display:block; background-color: rgba(0,0,0,0.5);">
+				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Configurações</h5>
-							<button type="button" class="btn-close" @onclick="() => MenuPainelAberto = false"></button>
+							<h5 class="modal-title fw-bold text-primary">
+								<span class="bi bi-plug-fill me-2"></span>
+								Configurações do Painel Solar
+							</h5>
+							<button type="button" class="btn-close" @onclick="FecharModal"></button>
 						</div>
-						<EditForm Model="@PainelTemp" OnValidSubmit="SalvarPainel">
-							<DataAnnotationsValidator />
-							<div class="modal-body">
-								<div class="input-group">
-									<label>Potência do Painel Solar:</label>
-									<InputNumber @bind-Value="PainelTemp.Potencia"
-												 min="1"
-												 max="50000"
-												 step="1"
-												 class="form-control">
-									</InputNumber>
-									<span class="input-group-text">W</span>
-								</div>
 
-								<div class="input-group">
-									<label>Eficiência do Painel Solar:</label>
-									<InputNumber @bind-Value="PainelTemp.Eficiencia"
-												 min="1"
-												 max="100"
-												 step="1"
-												 class="form-control">
-									</InputNumber>
-                                    <span class="input-group-text">%</span>
-								</div>
+						@if (ConfigPainel)
+						{
+							<EditForm Model="@PainelTemp" OnValidSubmit="SalvarPainel">
+								<DataAnnotationsValidator />
 
-								<div class="input-group">
-									<label>Horas de Sol Pleno (HSP):</label>
-									<InputNumber @bind-Value="PainelTemp.HorasSol"
-												 min="1"
-												 max="24"
-												 step="1"
-												 class="form-control">
-									</InputNumber>
-									<span class="input-group-text">HSP</span>
-								</div>
+								<div class="modal-body p-4">
+									<p class="text-muted small mb-4">
+										Modifique as variáveis técnicas referentes ao painel solar!
+									</p>
 
-								<div class="input-group">
-									<label>Custo do Painel Solar R$</label>
-									<InputNumber @bind-Value="PainelTemp.Custo"
-												 min="1"
-												 max="10000"
-												 step="1"
-												 class="form-control">
-									</InputNumber>
-									<span class="input-group-text">R$</span>
-								</div>
+									<ValidationSummary class="text-danger mb-3" />
 
-								<div class="input-group">
-									<label>Tarifa de Energia R$</label>
-									<InputNumber @bind-Value="PainelTemp.Tarifa"
-												 min="0.01"
-												 max="1000"
-												 step="0.01"
-												 class="form-control">
-									</InputNumber>
-									<span class="input-group-text">R$</span>
-								</div>
-							</div>
+									<div class="mb-3">
+										<label class="form-label fw-bold">Potência do Painel Solar:</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.Potencia" class="form-control" />
+											<span class="input-group-text">W</span>
+										</div>
+									</div>
 
-							<div class="modal-footer">
-								<button type="button" class="btn btn-outline-danger" @onclick="() => MenuPainelAberto = false">Cancelar</button>
-								<button type="submit" class="btn btn-outline-primary">Salvar</button>
-							</div>
-						</EditForm>
+									<div class="mb-3">
+										<label class="form-label fw-bold">Eficiência do Sistema (Inversor/Perdas):</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.Eficiencia" class="form-control" />
+											<span class="input-group-text">%</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Temperatura Nominal (NOCT):</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.Noct" min="0" max="100" class="form-control" />
+											<span class="input-group-text">°C</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Eficiência do Painel Solar:</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.EficNominal" class="form-control" />
+											<span class="input-group-text">%</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Coeficiente de perda por calor:</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.Pmpp" step="0.01" class="form-control" />
+											<span class="input-group-text">%</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Horas de Sol Pleno (HSP):</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.HorasSol" class="form-control" />
+											<span class="input-group-text">h</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Temperatura Ambiente Média:</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.TempAmb" class="form-control" />
+											<span class="input-group-text">°C</span>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-danger" @onclick="FecharModal">Cancelar</button>
+									<button type="submit" class="btn btn-outline-primary">Salvar</button>
+								</div>
+							</EditForm>
+						}
+
+						@if (ConfigPainelFinanceiro)
+						{
+							<EditForm Model="@PainelTemp" OnValidSubmit="SalvarPainel">
+								<DataAnnotationsValidator />
+
+								<div class="modal-body p-4">
+									<p class="text-muted small mb-4">
+										Modifique as variáveis financeiras!
+									</p>
+
+									<ValidationSummary class="text-danger mb-3" />
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Custo do Painel Solar:</label>
+										<div class="input-group">
+											<span class="input-group-text">R$</span>
+											<InputNumber @bind-Value="PainelTemp.Custo" class="form-control" />
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold">Tarifa de Energia:</label>
+										<div class="input-group">
+											<span class="input-group-text">R$</span>
+											<InputNumber @bind-Value="PainelTemp.Tarifa" step="0.01" class="form-control" />
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-danger" @onclick="FecharModal">Cancelar</button>
+									<button type="submit" class="btn btn-outline-primary">Salvar</button>
+								</div>
+							</EditForm>
+						}
 					</div>
 				</div>
 			</div>
@@ -332,7 +380,7 @@
 			<div class="alert alert-secondary py-2" style="font-size: 0.9rem;">
 				<strong>Por que @PlacasCalculadas e não @(Math.Floor(PlacasExatas))?</strong><br>
 				O cálculo exato seria @PlacasExatas, mas arredondamos para cima. Isso compensa dias nublados (HSP: @PainelDados.HorasSol) e perdas por eficiência (@PainelDados.Eficiencia%).
-				<button class="btn btn-outline-danger btn-sm py-0" @onclick="() => AbrirMenuPainel()">Editar variáveis.</button>
+				<button class="btn btn-outline-danger btn-sm py-0" @onclick="() => { AbrirMenuPainel(); ConfigPainel = true; }">Editar variáveis.</button>
 			</div>
 
 			@if (ItensCenario.Any() && ConsumoMes == 0)
@@ -374,20 +422,20 @@
 
 			<h5 class="mt-4">Tempo de Retorno do Investimento (Payback)</h5>
 
-			@if (CalculoEconomia() > 0)
+			@if (CalculoCustoMensal() > 0)
 			{
 				<div class="alert alert-success">
 					<p class="mb-2">
-						Para <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W e @PainelDados.Custo.ToString("C2", new CultureInfo("pt-br")), o investimento se pagaria em aproximadamente:
+						Para <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W e custo total de @((PainelDados.Custo * PlacasCalculadas).ToString("C2", new CultureInfo("pt-br"))), o investimento se pagaria em aproximadamente:
 					</p>
 
 					<h4 class="text-success fw-bold">@FormatarTempoRetorno()</h4>
 
 					<p class="mb-2" style="font-size: 0.9rem;">
-						Considerando uma economia na conta de luz de <strong>@CalculoEconomia().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
+						Considerando uma economia na conta de luz de <strong>@CalculoCustoMensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
 					</p>
 
-					<button class="btn btn-outline-success btn-sm mt-2" @onclick="AbrirMenuPainel">
+					<button class="btn btn-outline-success btn-sm mt-2" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
 						<span class="bi bi-pencil"></span> Ajustar valores financeiros
 					</button>
 				</div>
@@ -416,6 +464,8 @@
 
 	public double ConsumoMes { get; set; } = 0;
 	public double ConsumoTemp { get; set; } = 0;
+	public bool ConfigPainel { get; set; } = false;
+	public bool ConfigPainelFinanceiro { get; set; } = false;
 
 	double TotalKwhMensal => ConsumoMes > 0 ? ConsumoMes : ItensCenario.Sum(i => i.CalculoKwh());
 	double TotalKwhDiario => TotalKwhMensal / 30.0;
@@ -448,12 +498,17 @@
 			Id = PainelDados.Id,
 			Potencia = PainelDados.Potencia,
 			Eficiencia = PainelDados.Eficiencia,
+			Noct = PainelDados.Noct,
+			EficNominal = PainelDados.EficNominal,
 			HorasSol = PainelDados.HorasSol,
+			TempAmb = PainelDados.TempAmb,
+			Pmpp = PainelDados.Pmpp,
 			Custo = PainelDados.Custo,
 			Tarifa = PainelDados.Tarifa
 		};
 		MenuPainelAberto = true;
 	}
+
 
 	void SalvarItem()
 	{
@@ -477,7 +532,16 @@
 	{
 		PainelDados = PainelTemp;
 		PainelTemp = new();
+		ConfigPainel = false;
+		ConfigPainelFinanceiro = false;
 		MenuPainelAberto = false;
+	}
+
+	void FecharModal()
+	{
+		MenuPainelAberto = false;
+		ConfigPainel = false;
+		ConfigPainelFinanceiro = false;
 	}
 
 	void RemoveItem(ItemCenario ItemParaRemover)
@@ -500,14 +564,14 @@
 
 	public decimal CalculoCusto(ItemCenario item) => Math.Round((decimal)item.CalculoKwh() * PainelDados.Tarifa, 3);
 
-	public decimal CalculoEconomia() => TotalCustoMensal;
+	public decimal CalculoCustoMensal() => TotalCustoMensal;
 
 	public int CalculoRetornoMeses()
 	{
-		if (CalculoEconomia() <= 0) return 0;
+		if (CalculoCustoMensal() <= 0) return 0;
 		decimal custoTotalSistema = PainelDados.Custo * PlacasCalculadas;
 
-		return (int)Math.Ceiling(custoTotalSistema / CalculoEconomia());
+		return (int)Math.Ceiling(custoTotalSistema / CalculoCustoMensal());
 	}
 
 	public string FormatarTempoRetorno()
@@ -528,11 +592,9 @@
 		return $"{meses} meses";
 	}
 
-	public double NumPlacas(double ConsumoDiario)
-	{
-		double eficienciaDecimal = PainelDados.Eficiencia / 100.0;
-		double potenciaPainel = PainelDados.Potencia / 1000.0; // Convertendo de W para kW
-		double energiaGeradaPorPlaca = potenciaPainel * eficienciaDecimal * PainelDados.HorasSol;
-		return Math.Round(ConsumoDiario / energiaGeradaPorPlaca, 2);
-	}
+	public double TempOperacao() => PainelDados.TempAmb + ((PainelDados.Noct - 20.0) / 800.0) * 1000.0;
+	public double EficienciaReal() => PainelDados.EficNominal - ((PainelDados.Pmpp / 100) * (TempOperacao() - 25.0));
+	public double GeracaoPorDia() => (PainelDados.Potencia / 1000.0) * (EficienciaReal() / PainelDados.EficNominal) * PainelDados.HorasSol * (PainelDados.Eficiencia / 100);
+	public double NumPlacas(double ConsumoDiario) => Math.Round(ConsumoDiario / (GeracaoPorDia()), 2);
+
 }

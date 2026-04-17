@@ -1,0 +1,647 @@
+/* ====== POLITICAS PAGE STYLES ====== */
+
+.container-politicas {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Hero Section */
+.politicas-hero {
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+}
+
+.hero-content h1 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.hero-content .lead {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.15rem;
+}
+
+/* Main Content */
+.politicas-main {
+    padding: 2rem;
+    padding-top: 0;
+}
+
+/* Sections */
+.politicas-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #7c3aed;
+    display: inline-block;
+}
+
+/* Intro Section */
+.intro-card {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
+    border-radius: 12px;
+    border-left: 5px solid #7c3aed;
+}
+
+.intro-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background-color: #7c3aed;
+    color: white;
+    border-radius: 12px;
+    flex-shrink: 0;
+    font-size: 2rem;
+}
+
+.intro-content h2 {
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+/* Content Cards */
+.content-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-header-custom {
+    background: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%);
+    padding: 1.5rem;
+    border-bottom: 2px solid #7c3aed;
+}
+
+.card-header-custom h3 {
+    color: #6b21a8;
+    margin: 0;
+    font-weight: 700;
+}
+
+.card-body-custom {
+    padding: 2rem;
+    color: #374151;
+    line-height: 1.7;
+}
+
+.card-body-custom p {
+    margin-bottom: 1rem;
+}
+
+.card-body-custom h4 {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* Rules Container */
+.rules-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rule-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f9fafb;
+    border-left: 4px solid #7c3aed;
+    border-radius: 6px;
+}
+
+.rule-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.rule-content {
+    flex: 1;
+    color: #374151;
+}
+
+.rule-content strong {
+    color: #1f2937;
+}
+
+/* Resolutions Grid */
+.resolutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.resolution-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.resolution-card:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 8px 16px rgba(124, 58, 237, 0.1);
+    transform: translateY(-2px);
+}
+
+.res-badge {
+    display: inline-block;
+    background-color: #7c3aed;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.resolution-card h4 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.resolution-card p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* Net Metering */
+.netmetering-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+}
+
+.nm-text h3 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.nm-text p {
+    color: #374151;
+    margin-bottom: 1rem;
+    line-height: 1.7;
+}
+
+/* Flow Diagram */
+.flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
+    border-radius: 10px;
+}
+
+.flow-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.flow-icon {
+    font-size: 2.5rem;
+}
+
+.flow-item p {
+    font-size: 0.9rem;
+    color: #374151;
+    font-weight: 500;
+}
+
+.flow-arrow {
+    font-size: 1.5rem;
+    color: #7c3aed;
+    font-weight: 700;
+}
+
+/* Benefits List */
+.benefits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits-list li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #374151;
+    position: relative;
+}
+
+.benefits-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #7c3aed;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Incentives Section */
+.incentives-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.incentive-box {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.incentive-box:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 8px 16px rgba(124, 58, 237, 0.1);
+    transform: translateY(-2px);
+}
+
+.incentive-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem;
+    border-radius: 10px;
+    font-size: 1.8rem;
+}
+
+.incentive-box h4 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.incentive-box p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.incentive-summary {
+    background: linear-gradient(135deg, #ede9fe 0%, #f3e8ff 100%);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-left: 4px solid #7c3aed;
+}
+
+.incentive-summary h4 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.summary-list {
+    list-style: none;
+    padding: 0;
+}
+
+.summary-list li {
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    position: relative;
+}
+
+.summary-list li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #7c3aed;
+    font-weight: 700;
+}
+
+/* Credit Card */
+.credit-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.credit-header {
+    background: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%);
+    padding: 2rem;
+    border-bottom: 2px solid #7c3aed;
+}
+
+.credit-header h3 {
+    color: #6b21a8;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.credit-subtitle {
+    color: #7c3aed;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.credit-body {
+    padding: 2rem;
+    color: #374151;
+}
+
+.credit-body h4 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Conditions Grid */
+.conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.condition-item {
+    background: #f9fafb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+}
+
+.condition-icon {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.condition-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.condition-item strong {
+    display: block;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+/* Banks List */
+.banks-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.bank-badge {
+    background-color: #7c3aed;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* References Section */
+.references-section {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 2rem;
+}
+
+.references-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.reference-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.reference-item:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+}
+
+.ref-number {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.ref-content {
+    flex: 1;
+}
+
+.ref-authors {
+    margin: 0 0 0.25rem 0;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.ref-title {
+    margin: 0.25rem 0;
+    color: #1f2937;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.ref-journal {
+    margin: 0.25rem 0;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.ref-link {
+    margin-top: 0.75rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.ref-link a {
+    color: #7c3aed;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.ref-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-politicas {
+        padding: 0;
+    }
+
+    .politicas-hero {
+        padding: 2.5rem 1.5rem;
+        margin-bottom: 2rem;
+        border-radius: 0;
+    }
+
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+
+    .politicas-main {
+        padding: 1rem;
+        padding-top: 0;
+    }
+
+    .section-title {
+        font-size: 1.35rem;
+    }
+
+    .intro-card {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+
+    .intro-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+
+    .netmetering-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .flow-diagram {
+        flex-wrap: wrap;
+        padding: 1.5rem;
+    }
+
+    .flow-arrow {
+        width: 100%;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .resolutions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .incentives-container {
+        grid-template-columns: 1fr;
+    }
+
+    .reference-item {
+        flex-direction: column;
+    }
+
+    .ref-number {
+        width: 35px;
+        height: 35px;
+        margin-bottom: 0.5rem;
+    }
+
+    .credit-header {
+        padding: 1.5rem;
+    }
+
+    .credit-body {
+        padding: 1.5rem;
+    }
+
+    .conditions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.4rem;
+    }
+
+    .hero-content .lead {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.15rem;
+    }
+
+    .card-body-custom {
+        padding: 1.5rem;
+    }
+
+    .rules-container {
+        gap: 0.75rem;
+    }
+
+    .rule-item {
+        padding: 0.75rem;
+    }
+
+    .flow-diagram {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .banks-list {
+        gap: 0.5rem;
+    }
+
+    .bank-badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+}
