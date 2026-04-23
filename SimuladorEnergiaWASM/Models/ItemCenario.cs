@@ -7,10 +7,10 @@ namespace SimuladorEnergiaWASM.Models
         public int Id { get; set; }
         public string Nome { get; set; } = string.Empty;
         [Range(1, 50000)]
-        public float Consumo { get; set; }
+        public double Consumo { get; set; }
         [Required]
         [Range(0.01, 24)]
-        public float HorasUso { get; set; }
+        public double HorasUso { get; set; }
         [Range(1, 1000)]
         public int Quantidade { get; set; } = 1;
 

@@ -1,102 +1,70 @@
-﻿@using SimuladorEnergiaWASM.Models;
+﻿@using SimuladorEnergiaWASM.Components
+@using SimuladorEnergiaWASM.Models
 @using System.Globalization
 
-<div style="display: flex; gap: 40px;">
-	<div>
-		<svg width="800" height="500" viewBox="0 0 800 500">
-			<style type="text/css">
-				.cenario-fundo {
-					fill: none;
-					stroke: #000;
-					stroke-width: 2;
-				}
+<div class="conteudo">
 
-				.interativo {
-					fill: #fff;
-					stroke: #000;
-					stroke-width: 2;
-					cursor: pointer;
-					transition: fill 0.3s;
-				}
+	<div class="layout-principal">
+			<div class="d-flex gap-2 overflow-auto pb-2">
 
-					.interativo:hover {
-						fill: #e0e0e0;
-					}
+				<button class='btn @(ComodoAtual == "Cozinha" ? "btn-primary shadow-sm" : "btn-outline-primary")'
+						@onclick='() => MudarComodo("Cozinha")'>
+					<i class="bi bi-cup-hot me-2"></i> Cozinha
+				</button>
 
-				.btn-painel {
-					background-color: black;
-					color: white;
-					border-radius: 5px;
-					cursor: pointer;
-					transition: background-color 0.5s;
-				}
+				<button class='btn @(ComodoAtual == "Banheiro" ? "btn-primary shadow-sm" : "btn-outline-primary")'
+						@onclick='() => MudarComodo("Banheiro")'>
+					<i class="bi bi-droplet me-2"></i> Banheiro
+				</button>
 
-					.btn-painel:hover {
-						background-color: limegreen;
-						color: black;
-					}
+				<button class='btn @(ComodoAtual == "Sala" ? "btn-primary shadow-sm" : "btn-outline-primary")'
+						@onclick='() => MudarComodo("Sala")'>
+					<i class="bi bi-tv me-2"></i> Sala de Estar
+				</button>
 
-			</style>
-			<g id="fundo">
-				<rect width="800" height="500" fill="white" />
-				<line x1="0" y1="450" x2="800" y2="450" stroke="black" stroke-width="2" />
-				<rect x="250" y="250" width="550" height="200" class="cenario-fundo" />
-				<rect x="250" y="50" width="300" height="150" class="cenario-fundo" />
-				<line x1="400" y1="50" x2="400" y2="200" stroke="black" stroke-width="2" />
-			</g>
-			<g class="interativo" @onclick='() => AbrirMenu("Geladeira")'>
-				<rect x="20" y="80" width="200" height="370" />
-				<line x1="120" y1="80" x2="120" y2="450" stroke="black" stroke-width="2" />
-				<rect x="100" y="200" width="15" height="80" fill="none" stroke="black" stroke-width="2" />
-				<rect x="125" y="200" width="15" height="80" fill="none" stroke="black" stroke-width="2" />
-			</g>
-			<g class="interativo" transform="matrix(1, 0, 0, 1, 335.45108, 168.996201)" @onclick='() => AbrirMenu("Coifa")'>
-				<g transform="matrix(1, 0, 0, 1, 0.635324, -0.635324)">
-					<rect x="367.331" y="-167.13" width="42.135" height="82.211" />
-					<path d="M 366.582 -85.134 L 325.286 -40.026 L 454.257 -40.661 L 408.513 -84.499" />
-				</g>
-			</g>
-			<g class="interativo" @onclick='() => AbrirMenu("Air Fryer")'>
-				<rect x="280" y="170" width="94.142" height="80" style="" />
-				<rect x="280.121" y="155.045" width="94.142" height="15.197" style="stroke-width: 2;" />
-				<rect x="287.11" y="175.375" width="80.8" height="68.564" style="stroke-width: 2;" />
-				<rect x="322.954" y="188.26" width="12.681" height="50" fill="none" stroke="black" style="" />
-			</g>
-			<g class="interativo" @onclick='() => AbrirMenu("Torradeira")'>
-				<path d="M 400 250 L 400 200 Q 400 180 420 180 L 460 180 Q 480 180 480 200 L 480 250 Z" />
-				<rect x="420" y="185" width="15" height="5" fill="black" />
-				<rect x="445" y="185" width="15" height="5" fill="black" />
-				<rect x="485" y="210" width="10" height="20" fill="none" stroke="black" />
-			</g>
-			<g class="interativo" transform="matrix(1, 0, 0, 1, 143.583221, 0.635324)" @onclick='() => AbrirMenu("Fogão")'>
-				<rect x="500" y="250" width="150" height="200" />
-				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 213.574753, 145.80687)" />
-				<rect x="516.271" y="323.037" width="120" height="100" fill="none" stroke="black" />
-				<rect x="515.635" y="261.741" width="120" height="23.895" fill="none" stroke="black" style="" />
-				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 237.894958, 145.476547)" />
-				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 261.401947, 145.476547)" />
-				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 284.273621, 145.476547)" />
-				<circle cx="530" cy="230" r="15" fill="none" stroke="black" style="" transform="matrix(0.597628, 0, 0, 0.555273, 306.509949, 144.841232)" />
-			</g>
-			<g class="interativo" transform="matrix(1, 0, 0, 1, -141.041931, -29.860228)" @onclick='() => AbrirMenu("Microondas")'>
-				<rect x="650" y="200" width="120" height="80" />
-				<rect x="660" y="210" width="79.67" height="60" fill="none" stroke="black" style="" />
-				<rect x="723.824" y="219.682" width="7.878" height="41.576" fill="none" stroke="black" style="stroke-width: 2;" />
-				<rect x="746.379" y="214.282" width="15.502" height="51.741" fill="none" stroke="black" style="stroke-width: 2;" />
-			</g>
-			<g class="interativo" @onclick='() => AbrirMenu("Lâmpada")'>
-				<path d="M 452.669 23.507 L 479.035 65.438 L 426.303 65.438 L 452.669 23.507 Z" bx:shape="triangle 426.303 23.507 52.732 41.931 0.5 0 1@dfd6894b" />
-				<path d="M 452.351 22.872 C 452.351 15.574 451.715 7.084 451.715 -0.635" />
-				<path d="M 428.844 72.427 C 426.351 76.167 413.596 86.347 413.596 89.581" />
-				<path d="M 438.374 75.604 C 436.957 81.27 434.562 86.166 434.562 92.122" />
-				<path d="M 449.809 76.874 C 449.809 84.286 449.809 91.698 449.809 99.111" />
-				<path d="M 458.704 77.51 C 460.747 81.595 464.422 94.064 464.422 98.475" />
-				<path d="M 465.057 77.51 C 470.521 82.974 472.456 93.168 477.764 98.475" />
-				<path d="M 474.587 74.968 C 477.847 79.315 479.799 84.247 482.846 88.31 C 484.009 89.861 489.835 93.891 489.835 95.299" />
-			</g>
-		</svg>
+				<button class='btn @(ComodoAtual == "Quarto" ? "btn-primary shadow-sm" : "btn-outline-primary")'
+						@onclick='() => MudarComodo("Quarto")'>
+					<i class="bi bi-moon-stars me-2"></i> Quarto
+				</button>
+				<button class='btn @(ComodoAtual == "Lavanderia" ? "btn-primary shadow-sm" : "btn-outline-primary")'
+						@onclick='() => MudarComodo("Lavanderia")'>
+					<i class="bi bi-droplet-fill me-2"></i> Lavanderia
+				</button>
 
-		<div style="display: flex; justify-content: center;">
+			</div>
+		<div class="desenho_svg">
+			@switch (ComodoAtual)
+			{
+				case "Cozinha":
+					<CozinhaSvg Clique="AbrirMenu" />
+					break;
+
+				case "Banheiro":
+					<BanheiroSvg Clique="AbrirMenu" />
+					break;
+
+				case "Sala":
+					<SalaSvg Clique="AbrirMenu" />
+					break;
+
+				case "Quarto":
+					<QuartoSvg Clique="AbrirMenu" />
+					break;
+
+				case "Lavanderia":
+					<LavanderiaSvg Clique="AbrirMenu" />
+					break;
+
+				default:
+					<div class="text-muted mt-5">
+						<i class="bi bi-exclamation-circle fs-1 mb-3 d-block"></i>
+						<p>Cômodo não encontrado ou em construção.</p>
+					</div>
+					break;
+			}
+		</div>
+
+		<div class="text-center mt-3">
 			<button type="button" class="btn btn-outline-primary" @onclick="() => MenuConsumoAberto = true">
 				Clique aqui para adicionar o seu consumo de energia mensal diretamente.
 			</button>
@@ -124,8 +92,8 @@
 								<div class="mb-3">
 									<label class="form-label fw-bold">Nome do Item:</label>
 									<InputText @bind-Value="ItemTemp.Nome"
-											   class="form-control"
-											   placeholder="Ex: Geladeira, Ar condicionado...">
+												class="form-control"
+												placeholder="Ex: Geladeira, Ar condicionado...">
 									</InputText>
 								</div>
 
@@ -133,10 +101,10 @@
 									<label class="form-label fw-bold">Potência do item:</label>
 									<div class="input-group">
 										<InputNumber @bind-Value="ItemTemp.Consumo"
-													 min="1"
-													 max="50000"
-													 step="1"
-													 class="form-control">
+														min="1"
+														max="50000"
+														step="1"
+														class="form-control">
 										</InputNumber>
 										<span class="input-group-text">W</span>
 									</div>
@@ -146,9 +114,9 @@
 									<label class="form-label fw-bold">Tempo de Uso</label>
 									<div class="input-group">
 										<InputNumber @bind-Value="ItemTemp.HorasUso"
-													 min="0.01"
-													 max="24"
-													 class="form-control">
+														min="0.01"
+														max="24"
+														class="form-control">
 										</InputNumber>
 										<span class="input-group-text bg-light text-muted">h/dia</span>
 									</div>
@@ -183,10 +151,10 @@
 							<label>Consumo:</label>
 							<div class="input-group">
 								<InputNumber @bind-Value="ConsumoTemp"
-											 class="form-control"
-											 min="0"
-											 max="10000"
-											 step="1">
+												class="form-control"
+												min="0"
+												max="10000"
+												step="1">
 								</InputNumber>
 								<span class="input-group-text">kWh/mês</span>
 							</div>
@@ -267,6 +235,14 @@
 									</div>
 
 									<div class="mb-3">
+										<label class="form-label fw-bold">Fator de simultaneidade:</label>
+										<div class="input-group">
+											<InputNumber @bind-Value="PainelTemp.FatorSim" step="0.01" class="form-control" />
+											<span class="input-group-text">%</span>
+										</div>
+									</div>
+
+									<div class="mb-3">
 										<label class="form-label fw-bold">Horas de Sol Pleno (HSP):</label>
 										<div class="input-group">
 											<InputNumber @bind-Value="PainelTemp.HorasSol" class="form-control" />
@@ -313,7 +289,40 @@
 										<label class="form-label fw-bold">Tarifa de Energia:</label>
 										<div class="input-group">
 											<span class="input-group-text">R$</span>
-											<InputNumber @bind-Value="PainelTemp.Tarifa" step="0.01" class="form-control" />
+											<InputNumber @bind-Value="PainelTemp.TarifaEnergia" step="0.01" class="form-control" />
+										</div>
+									</div>
+									<div class="mb-3">
+										<label class="form-label fw-bold">Tarifa do Uso de Distribuição:</label>
+										<div class="input-group">
+											<span class="input-group-text">R$</span>
+											<InputNumber @bind-Value="PainelTemp.TUSD" step="0.01" class="form-control" />
+										</div>
+									</div>
+
+									<div class="mb-3">
+										<label class="form-label fw-bold d-block">Padrão de Ligação (Taxa Mínima):</label>
+										<div class="btn-group w-100 shadow-sm" role="group" aria-label="Tipo de ligação">
+											<button type="button"
+													class="btn @(PainelTemp.TaxaMinima == 30 ? "btn-primary" : "btn-outline-primary")"
+													@onclick="() => { PainelTemp.TaxaMinima = 30; StateHasChanged(); }">
+													Monofásico <small class="d-block">(30 kWh)</small>
+											</button>
+
+											<button type="button"
+													class="btn @(PainelTemp.TaxaMinima == 50 ? "btn-primary" : "btn-outline-primary")"
+													@onclick="() => { PainelTemp.TaxaMinima = 50; StateHasChanged(); }">
+												Bifásico <small class="d-block">(50 kWh)</small>
+											</button>
+
+											<button type="button"
+													class="btn @(PainelTemp.TaxaMinima == 100 ? "btn-primary" : "btn-outline-primary")"
+													@onclick="() => { PainelTemp.TaxaMinima = 100; StateHasChanged(); }">
+												Trifásico <small class="d-block">(100 kWh)</small>
+											</button>
+										</div>
+										<div class="form-text mt-2">
+											<i class="bi bi-info-circle"></i> O sistema considerará apenas o consumo excedente a esse valor para o cálculo das placas.
 										</div>
 									</div>
 								</div>
@@ -331,7 +340,7 @@
 	</div>
 
 
-	<div class="alert alert-light border shadow-sm">
+	<div class="alert alert-light border shadow-sm area-informacoes">
 		<h5 class="text-danger d-flex align-items-center">
 			<span class="me-2" style="font-size: 1.5em;">&#33;</span>
 			<span>Atenção! Resultados estimados.</span>
@@ -352,7 +361,8 @@
 						<div class="card-body">
 							<h6 class="card-title text-muted">Consumo Mensal</h6>
 							<h4>@TotalKwhMensal.ToString("N2") kWh</h4>
-							<small>@TotalKwhDiario.ToString("N2") kWh/dia</small>
+							<small class="d-block">@TotalKwhDiario.ToString("N2") kWh/dia</small>
+							<small class="d-block" style="color: darkcyan">Taxa Mínima: @PainelDados.TaxaMinima.ToString("N2") kWh</small>
 						</div>
 					</div>
 				</div>
@@ -360,9 +370,9 @@
 					<div class="card bg-light">
 						<div class="card-body">
 							<h6 class="card-title text-muted">Custo Estimado</h6>
-							<h4>@TotalCustoMensal.ToString("C2", new CultureInfo("pt-BR"))</h4>
-							<small>@TotalCustoDiario.ToString("C2", new CultureInfo("pt-BR"))/dia</small>
-							<small class="d-block mt-2">Tarifa de R$ @PainelDados.Tarifa/kWh</small>
+							<h4>@TotalCustoMensal.ToString("C2", new CultureInfo("pt-BR"))/mês</h4>
+							<small class="d-block">@TotalCustoDiario.ToString("C2", new CultureInfo("pt-BR"))/dia</small>
+							<small class="d-block" style="color: darkcyan">Taxa mínima: R$ @(PainelDados.TaxaMinima * (PainelDados.TUSD + PainelDados.TarifaEnergia))</small>
 						</div>
 					</div>
 				</div>
@@ -421,18 +431,18 @@
 			}
 
 			<h5 class="mt-4">Tempo de Retorno do Investimento (Payback)</h5>
-
-			@if (CalculoCustoMensal() > 0)
+			@if (TotalCustoMensal > 0)
 			{
 				<div class="alert alert-success">
 					<p class="mb-2">
 						Para <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W e custo total de @((PainelDados.Custo * PlacasCalculadas).ToString("C2", new CultureInfo("pt-br"))), o investimento se pagaria em aproximadamente:
 					</p>
 
-					<h4 class="text-success fw-bold">@FormatarTempoRetorno()</h4>
+					<h4 class="text-success fw-bold">@FormatarTempoRetorno(TotalCustoMensal)</h4>
 
 					<p class="mb-2" style="font-size: 0.9rem;">
-						Considerando uma economia na conta de luz de <strong>@CalculoCustoMensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
+						@* Considerando uma economia na conta de luz de <strong>@TotalCustoMensal.ToString("C2", new CultureInfo("pt-BR"))</strong> por mês. *@
+						Considerando uma economia na conta de luz de <strong>@Economia_Mensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
 					</p>
 
 					<button class="btn btn-outline-success btn-sm mt-2" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
@@ -468,20 +478,31 @@
 	public bool ConfigPainelFinanceiro { get; set; } = false;
 
 	double TotalKwhMensal => ConsumoMes > 0 ? ConsumoMes : ItensCenario.Sum(i => i.CalculoKwh());
+	double TotalKwhMensalAlvo => Math.Max(0, TotalKwhMensal - PainelDados.TaxaMinima);
 	double TotalKwhDiario => TotalKwhMensal / 30.0;
+	double TotalKwhDiarioAlvo => TotalKwhMensalAlvo / 30.0;
 
-	decimal TotalCustoMensal => ConsumoMes > 0 ? (decimal)ConsumoMes * PainelDados.Tarifa : TotalCustoItens();
+	decimal TotalCustoMensal => ConsumoMes > 0 ? (decimal)ConsumoMes * (PainelDados.TarifaEnergia + PainelDados.TUSD) : TotalCustoItens();
 	decimal TotalCustoDiario => TotalCustoMensal / 30m;
 
-	double NumPlacasDouble => NumPlacas(TotalKwhDiario);
+	double NumPlacasDouble => NumPlacas(TotalKwhDiarioAlvo);
 	int PlacasCalculadas => (int)Math.Ceiling(NumPlacasDouble);
 	double PlacasExatas => Math.Round(NumPlacasDouble, 2);
 
-	bool TemDados => ItensCenario.Any() || ConsumoMes > 0; // Verifica se há algum dado para mostrar
+	bool TemDados => ItensCenario.Any() || ConsumoMes > 0; 
 
-	void AbrirMenu(string NomeSugerido)
+	private string ComodoAtual { get; set; } = "Cozinha";
+
+	private void MudarComodo(string novoComodo) => ComodoAtual = novoComodo;
+
+	void AbrirMenu(ItemCenario aparelho)
 	{
-		ItemTemp = new ItemCenario { Nome = NomeSugerido };
+		ItemTemp = new ItemCenario { 
+			Nome = aparelho.Nome,
+			Consumo = aparelho.Consumo,
+			HorasUso = aparelho.HorasUso
+			
+		};
 		MenuAberto = true;
 	}
 
@@ -503,8 +524,11 @@
 			HorasSol = PainelDados.HorasSol,
 			TempAmb = PainelDados.TempAmb,
 			Pmpp = PainelDados.Pmpp,
+			FatorSim = PainelDados.FatorSim,
 			Custo = PainelDados.Custo,
-			Tarifa = PainelDados.Tarifa
+			TarifaEnergia = PainelDados.TarifaEnergia,
+			TUSD = PainelDados.TUSD,
+			TaxaMinima = PainelDados.TaxaMinima
 		};
 		MenuPainelAberto = true;
 	}
@@ -518,7 +542,7 @@
 		ItensCenario.Add(ItemTemp);
 		ItemTemp = new();
 
-		ConsumoMes = 0; // Limpa o consumo mensal para forçar o cálculo pelos itens
+		ConsumoMes = 0;
 		MenuAberto = false;
 	}
 
@@ -560,23 +584,39 @@
 		ConsumoMes = 0;
 	}
 
-	public decimal TotalCustoItens() => ItensCenario.Sum(item => CalculoCusto(item));
+	// Cálculo da quantidade de painéis solares
+	public double TempOperacao() => PainelDados.TempAmb + ((PainelDados.Noct - 20.0) / 800.0) * 1000.0;
+	// public double EficienciaReal() => PainelDados.EficNominal - ((PainelDados.Pmpp / 100) * (TempOperacao() - 25.0));
+	public double EficienciaReal() => PainelDados.EficNominal * (1.0 - ((PainelDados.Pmpp / 100.0) * (TempOperacao() - 25.0))); 
+	public double GeracaoPorDia() => (PainelDados.Potencia / 1000.0) * (EficienciaReal() / PainelDados.EficNominal) * PainelDados.HorasSol * (PainelDados.Eficiencia / 100);
+	public double NumPlacas(double ConsumoDiario) => Math.Round(ConsumoDiario / (GeracaoPorDia()), 2);
 
-	public decimal CalculoCusto(ItemCenario item) => Math.Round((decimal)item.CalculoKwh() * PainelDados.Tarifa, 3);
+	//Cálculo de PayBack
 
-	public decimal CalculoCustoMensal() => TotalCustoMensal;
-
-	public int CalculoRetornoMeses()
+	// public double Energia_fv() => GeracaoPorDia() * NumPlacas(TotalKwhDiario) * 30;
+	public double Energia_fv() => GeracaoPorDia() * PlacasCalculadas * 30.0;
+	public double Energia_fv_consumida() => PainelDados.FatorSim * Energia_fv();
+	public double Energia_injetada() => (1 - PainelDados.FatorSim) * Energia_fv();
+	// public decimal Tarifa_energia_injetada() => PainelDados.TarifaEnergia - (PainelDados.TUSD * (decimal)PainelDados.ProgressaoFioB);
+	public decimal Tarifa_Plena() => PainelDados.TarifaEnergia + PainelDados.TUSD;
+	public decimal Tarifa_energia_injetada() => Tarifa_Plena() - (PainelDados.TUSD * (decimal)PainelDados.ProgressaoFioB);
+	// public decimal Economia_Mensal() => ((decimal)Energia_fv_consumida() * PainelDados.TarifaEnergia) + ((decimal)Energia_injetada() * Tarifa_energia_injetada());
+	public decimal Economia_Mensal() => ((decimal)Energia_fv_consumida() * Tarifa_Plena()) + ((decimal)Energia_injetada() * Tarifa_energia_injetada());
+	public int CalculoRetornoMeses(decimal TotalCustoMensal)
 	{
-		if (CalculoCustoMensal() <= 0) return 0;
+		// if (CalculoCustoMensal() <= 0) return 0;
+		if (TotalCustoMensal <= 0 || Economia_Mensal() <= 0) return 0;
 		decimal custoTotalSistema = PainelDados.Custo * PlacasCalculadas;
 
-		return (int)Math.Ceiling(custoTotalSistema / CalculoCustoMensal());
+		return (int)Math.Ceiling(custoTotalSistema / Economia_Mensal());
 	}
 
-	public string FormatarTempoRetorno()
+	public decimal CalculoCusto(ItemCenario item) => Math.Round((decimal)item.CalculoKwh() * (PainelDados.TarifaEnergia + PainelDados.TUSD), 3);
+	public decimal TotalCustoItens() => ItensCenario.Sum(item => CalculoCusto(item));
+
+	public string FormatarTempoRetorno(decimal TotalCustoMensal)
 	{
-		int mesesTotais = CalculoRetornoMeses();
+		int mesesTotais = CalculoRetornoMeses(TotalCustoMensal);
 
 		if (mesesTotais == 0) return "Imediato";
 
@@ -591,10 +631,5 @@
 
 		return $"{meses} meses";
 	}
-
-	public double TempOperacao() => PainelDados.TempAmb + ((PainelDados.Noct - 20.0) / 800.0) * 1000.0;
-	public double EficienciaReal() => PainelDados.EficNominal - ((PainelDados.Pmpp / 100) * (TempOperacao() - 25.0));
-	public double GeracaoPorDia() => (PainelDados.Potencia / 1000.0) * (EficienciaReal() / PainelDados.EficNominal) * PainelDados.HorasSol * (PainelDados.Eficiencia / 100);
-	public double NumPlacas(double ConsumoDiario) => Math.Round(ConsumoDiario / (GeracaoPorDia()), 2);
 
 }

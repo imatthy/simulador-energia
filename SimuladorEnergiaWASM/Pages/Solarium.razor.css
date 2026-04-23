@@ -1,0 +1,154 @@
+/* Parte superior */
+.solarium-hero {
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+}
+
+.hero-content h1 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.hero-content .lead {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.15rem;
+}
+
+/*h2 {
+    color: #7c3aed;
+    font-weight: 700;
+    border-bottom: 3px solid #7c3aed;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}*/
+
+/*h4 {
+    color: #6b21a8;
+    font-weight: 600;
+}*/
+
+/* Titulo das formulas */
+.card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb !important;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%) !important;
+}
+
+/* Container das formulas */
+.bg-light {
+    background: #f3e8ff !important;
+    border-left: 4px solid #7c3aed;
+    padding: 1.5rem !important;
+    border-radius: 8px !important;
+}
+
+/* Cor dos paragrafos */
+p {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+/* References Section */
+.references-section {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-title .bi {
+    color: #7c3aed;
+    margin-right: 0.75rem;
+}
+
+.references-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.reference-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.reference-item:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+}
+
+.ref-number {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.ref-content {
+    flex: 1;
+}
+
+.ref-authors {
+    margin: 0 0 0.25rem 0;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.ref-title {
+    margin: 0.25rem 0;
+    color: #1f2937;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.ref-journal {
+    margin: 0.25rem 0;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.ref-link {
+    margin-top: 0.75rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.ref-link a {
+    color: #7c3aed;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.ref-link a:hover {
+    text-decoration: underline;
+}

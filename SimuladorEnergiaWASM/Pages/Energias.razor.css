@@ -1,0 +1,436 @@
+.container-energias {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.energias-hero {
+    background: linear-gradient(135deg, #7c3aed 0%, #6b21a8 100%);
+    color: white;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2);
+}
+
+.hero-content h1 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.hero-content .lead {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.15rem;
+}
+
+.energias-main {
+    background: white;
+}
+
+.energias-section {
+    margin-bottom: 3.5rem;
+}
+
+.section-title {
+    color: #1f2937;
+    font-weight: 700;
+    font-size: 1.75rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #7c3aed;
+}
+
+.section-title .bi {
+    color: #7c3aed;
+}
+
+.intro-card {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    padding: 2rem;
+    border-left: 4px solid #7c3aed;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.1);
+}
+
+.intro-card p {
+    color: #4b5563;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.info-card {
+    background: white;
+    padding: 2rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
+    transform: translateY(-4px);
+}
+
+.info-icon {
+    display: flex;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #7c3aed;
+    margin-bottom: 1rem;
+}
+
+.info-card h5 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.info-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.applications-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.application-item {
+    background: white;
+    padding: 1.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.application-item:hover {
+    border-color: #fbbf24;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15);
+}
+
+.app-icon {
+    display: flex;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: #fbbf24;
+    margin-bottom: 1rem;
+}
+
+.application-item h5 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.application-item p {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.challenge-box {
+    background: #fff7ed;
+    padding: 2rem;
+    border-left: 4px solid #fbbf24;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.challenge-intro {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.challenge-box p {
+    color: #4b5563;
+    line-height: 1.8;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.benefit-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #e8f5e9 100%);
+    padding: 1.75rem;
+    border: 2px solid #d1fae5;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    border-color: #10b981;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+.benefit-icon {
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+    color: #10b981;
+    margin-bottom: 0.75rem;
+}
+
+.benefit-card h6 {
+    color: #1f2937;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.benefit-card p {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.restaurant-box {
+    background: linear-gradient(135deg, #fef3c7 0%, #fef9e7 100%);
+    padding: 2rem;
+    border-left: 4px solid #fbbf24;
+    border-radius: 10px;
+}
+
+.restaurant-box p {
+    color: #4b5563;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.credit-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.credit-card {
+    background: white;
+    padding: 2rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.credit-card:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.15);
+}
+
+.credit-card h5 {
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.credit-card h5::before {
+    content: "💳";
+    margin-right: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.credit-card p {
+    color: #6b7280;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.credit-info {
+    background: #f3f4f6;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-style: italic;
+    font-size: 0.85rem !important;
+}
+
+.credit-note {
+    background: #e0f2fe;
+    padding: 1.25rem;
+    border-radius: 10px;
+    border-left: 4px solid #0ea5e9;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    color: #0c4a6e;
+}
+
+.credit-note .bi {
+    color: #0284c7;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .info-grid,
+    .applications-container,
+    .benefits-grid,
+    .credit-container {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .energias-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .intro-card,
+    .challenge-box,
+    .restaurant-box,
+    .credit-card {
+        padding: 1.5rem;
+    }
+
+    .credit-note {
+        flex-direction: column;
+    }
+
+    .credit-note .bi {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-content .lead {
+        font-size: 1rem;
+    }
+
+    .energias-hero {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .info-icon,
+    .app-icon,
+    .benefit-icon {
+        font-size: 2rem;
+    }
+}
+
+p {
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+a {
+    color: #7c3aed;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.references-section {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.references-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.reference-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.reference-item:hover {
+    border-color: #7c3aed;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+}
+
+.ref-number {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.ref-content {
+    flex: 1;
+}
+
+.ref-authors {
+    margin: 0 0 0.25rem 0;
+    color: #1f2937;
+    font-weight: 700;
+}
+
+.ref-title {
+    margin: 0.25rem 0;
+    color: #1f2937;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.ref-journal {
+    margin: 0.25rem 0;
+    color: #6b7280;
+    font-size: 0.95rem;
+}
+
+.ref-link {
+    margin-top: 0.75rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.ref-link a {
+    color: #7c3aed;
+    text-decoration: none;
+    word-break: break-word;
+}
+
+.ref-link a:hover {
+    text-decoration: underline;
+}

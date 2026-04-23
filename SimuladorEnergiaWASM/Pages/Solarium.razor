@@ -1,3 +1,184 @@
 ﻿@page "/solarium"
 
-<h3>aaaaaaaaaaaaa</h3>
+@inject IJSRuntime JS
+
+<div @ref="AreaEquacoes" class="container-fluid py-4">
+    <div class="solarium-hero">
+        <div class="hero-content">
+            <h1 class="display-5 fw-bold">
+                <i class="bi bi-journal-text me-2" style="color: white"></i> Cálculos do Sistema de Dimensionamento Fotovoltaico
+            </h1>
+            <p class="lead">
+                Abaixo estão detalhadas as metodologias matemáticas e físicas utilizadas por este simulador, apresentadas na ordem exata de cálculo.
+            </p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+            <h4 class="fw-bold text-dark"><i class="bi bi-sun text-warning me-2" style="color: #f59e0b"></i> Cálculo para quantidade de painéis solares</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="mb-4">
+                <p class="mb-2">A temperatura de operação do painel $T_o$ é a soma da temperatura ambiente local com a projeção de aquecimento da célula sob sol de pico $1000 \text{ W/m}^2$. Essa projeção utiliza o NOCT (Temperatura Nominal de Operação da Célula), uma métrica encontrada nos datasheets dos painéis solares, que reflete a temperatura de funcionamento sob condições reais de campo (medida em laboratório a $20^\circ\text{C}$ e irradiância de $800 \text{ W/m}^2$).</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$T_o = T_{amb} + \frac{NOCT - 20}{800} \cdot 1000$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">A eficiência real é um cálculo que considera a perda da eficiência nominal do painel solar devido ao calor. Ela utiliza o coeficiente de temperatura de potência $P_{mpp}$, descontando a perda para cada grau que a célula ultrapassa os $25^\circ\text{C}$ das Condições Padrão de Teste (STC).</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$\eta_r = \eta_p - (P_{mpp} \cdot (T_o - 25))$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">A Geração diária por painel $G_p$ calcula quantos kWh uma única placa produz por dia. Ela converte a potência nominal do painel $P_n$ para kW, aplica o fator de perda térmica, multiplica pelas Horas de Sol Pleno (HSP) da região e, por fim, aplica a eficiência global do sistema $E_s$, que engloba as perdas do inversor, cabeamento e sujeira.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$G_p = \frac{P_n}{1000} \cdot \frac{\eta_r}{\eta_p} \cdot HSP \cdot \frac{E_s}{100}$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">O Número de painéis $N_p$ é definido dividindo a meta de consumo diário da residência pela capacidade de geração de uma única placa. Este valor é sempre arredondado para cima.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$N_p = \left\lceil \frac{Consumo_{diario}}{G_p} \right\rceil$$
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+            <h4 class="fw-bold text-dark"><i class="bi bi-cash-coin text-success me-2"></i> Cálculo de retorno de investimento (payback)</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="mb-4">
+                <p class="mb-2">O fator de simultaneidade $F_s$ está relacionado à quantidade de energia consumida instantaneamente após a sua geração, sem que passe pela rede da concessionária. Quanto maior o valor, menor será a incidência da cobrança da TUSD Fio B. (Para residências, geralmente adota-se um valor de $0,35$ ou $35\%$).</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$F_s = \frac{E_{fv\_con}}{E_{fv}}$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">A energia fotovoltaica total é toda a energia gerada em um mês inteiro pelo sistema projetado, multiplicando a geração diária de uma placa por 30 dias e pelo número total de painéis.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$E_{fv} = G_p \cdot 30 \cdot N_p$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">$E_{fv\_con}$ é a parcela da energia fotovoltaica que é consumida no mesmo instante em que é gerada (Autoconsumo).</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$E_{fv\_con} = F_s \cdot E_{fv}$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">$E_{inj}$ é a parcela da energia gerada pelo sistema fotovoltaico que "sobra" e é inserida na rede da concessionária. Essa é a energia sobre a qual incidirá o "pedágio" do Fio B.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$E_{inj} = (1 - F_s) \cdot E_{fv}$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">$TP$ é a Tarifa Plena, ou seja, o custo total da energia composto pela soma da Tarifa de Uso do Sistema de Distribuição $T_{USD}$ com a Tarifa de Energia $TE$.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$TP = T_{USD} + TE$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">$TE_{inj}$ é a tarifa compensada sobre a energia injetada na rede da concessionária, onde "p" é o percentual progressivo de taxação do Fio B conforme especificado pela Lei 14.300/2022.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$TE_{inj} = TP - (TUSD_{FioB} \cdot p)$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">A economia mensal é a soma da energia consumida instantaneamente multiplicada pela Tarifa Plena (valor integral que você deixa de pagar à concessionária) com a energia injetada na rede multiplicada pela tarifa compensada $TE_{inj}$. Como a energia injetada sofre a taxação do Fio B, o valor desse crédito é menor do que a tarifa de energia comum.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$Economia_{Mensal} = (E_{fv\_con} \cdot TP) + (E_{inj} \cdot TE_{inj})$$
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="mb-2">O tempo de retorno do investimento (Payback) é calculado dividindo o custo total do sistema (preço unitário do painel multiplicado pela quantidade de painéis) pela economia mensal gerada na conta de luz. O resultado indica a quantidade de meses necessários para o sistema se pagar.</p>
+                <div class="bg-light p-3 rounded text-center">
+                    $$Retorno = \frac{N_p \cdot Custo_{painel}}{Economia_{Mensal}}$$
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <section class="references-section mt-5">
+        <h2 class="section-title mb-4">
+            <span class="bi bi-book me-2"></span>
+            Referências
+        </h2>
+        <div class="references-container">
+            <div class="reference-item">
+                <div class="ref-number">1</div>
+                <div class="ref-content">
+                    <p class="ref-authors"><strong>SOUZA, R. Z.</strong></p>
+                    <p class="ref-title">
+                        Desenvolvimento de software para projeto de sistemas híbridos fotovoltaico/térmico a partir de dados de consumo energético residenciais.
+                    </p>
+                    <p class="ref-journal">
+                        2024. Trabalho de Conclusão de Curso (Curso de Engenharia Elétrica) - Instituto Federal do Espírito Santo Campus São Mateus, 2024.
+                    </p>
+                    <p class="ref-link">
+                        Disponível em: <a href="https://repositorio.ifes.edu.br/items/52d868a8-7ac7-4514-a765-c3eb207351c3" target="_blank">https://repositorio.ifes.edu.br/items/52d868a8-7ac7-4514-a765-c3eb207351c3</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="reference-item">
+                <div class="ref-number">2</div>
+                <div class="ref-content">
+                    <p class="ref-authors"><strong>COSTA, F. F. A.; OLIVEIRA, M. R. De; DOMINGUES, A. H. G.; SILVA, J. F. R. Da; SANTOS, R. J. Dos; CARI, E. P. T.; CABRERA, F. C.</strong></p>
+                    <p class="ref-title">
+                        Avaliação do payback em sistemas fotovoltaicos on-grid para consumidores residenciais grupo B1 sob a lei 14300/2022.
+                    </p>
+                    <p class="ref-journal">Revista Brasileira de Energia Solar, v. 16, n. 2, p. 147–157, dezembro 2025.</p>
+                    <p class="ref-link">
+                        DOI: <a href="https://doi.org/10.59627/rbens.2025v16i2.509" target="_blank">https://doi.org/10.59627/rbens.2025v16i2.509</a><br>
+                        Disponível em: <a href="https://rbens.emnuvens.com.br/rbens/article/view/509" target="_blank">https://rbens.emnuvens.com.br/rbens/article/view/509</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="reference-item">
+                <div class="ref-number">3</div>
+                <div class="ref-content">
+                    <p class="ref-authors"><strong>ROCHA, A. V.; CAMBOIM, G. C.; ROCHA, F. A. F.</strong></p>
+                    <p class="ref-title">
+                        Análise dos impactos na viabilidade econômica com vigência da lei 14.300/2022 em projetos de geração solar fotovoltaica: Estudo de caso em consumidor do RN.
+                    </p>
+                    <p class="ref-journal">Revista Brasileira de Gestão, Negócio e Tecnologia da Informação, v. 4, n. 1, julho 2024.</p>
+                    <p class="ref-link">
+                        DOI: <a href="https://doi.org/10.15628/empricabr.2024.17319" target="_blank">https://doi.org/10.15628/empricabr.2024.17319</a><br>
+                        Disponível em: <a href="https://www2.ifrn.edu.br/ojs/index.php/EmpiricaBR/article/view/17319" target="_blank">https://www2.ifrn.edu.br/ojs/index.php/EmpiricaBR/article/view/17319</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@code {
+    private ElementReference AreaEquacoes;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("renderizarLatex", AreaEquacoes);
+        }
+    }
+}
