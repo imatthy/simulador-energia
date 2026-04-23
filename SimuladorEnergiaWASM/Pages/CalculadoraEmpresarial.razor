@@ -176,42 +176,10 @@
 									</div>
 
 									<div class="mb-3">
-										<label class="form-label fw-bold">Temperatura Nominal (NOCT):</label>
-										<div class="input-group">
-											<InputNumber @bind-Value="PainelTemp.Noct" min="0" max="100" class="form-control" />
-											<span class="input-group-text">°C</span>
-										</div>
-									</div>
-
-									<div class="mb-3">
-										<label class="form-label fw-bold">Eficiência do Painel Solar:</label>
-										<div class="input-group">
-											<InputNumber @bind-Value="PainelTemp.EficNominal" class="form-control" />
-											<span class="input-group-text">%</span>
-										</div>
-									</div>
-
-									<div class="mb-3">
-										<label class="form-label fw-bold">Coeficiente de perda por calor:</label>
-										<div class="input-group">
-											<InputNumber @bind-Value="PainelTemp.Pmpp" step="0.01" class="form-control" />
-											<span class="input-group-text">%</span>
-										</div>
-									</div>
-
-									<div class="mb-3">
 										<label class="form-label fw-bold">Fator de simultaneidade:</label>
 										<div class="input-group">
-											<InputNumber @bind-Value="PainelTemp.FatorSim" step="0.01" class="form-control" />
+											<InputNumber @bind-Value="PainelTemp.FatorSimB" step="0.01" class="form-control" />
 											<span class="input-group-text">%</span>
-										</div>
-									</div>
-
-									<div class="mb-3">
-										<label class="form-label fw-bold">Horas de Sol Pleno (HSP):</label>
-										<div class="input-group">
-											<InputNumber @bind-Value="PainelTemp.HorasSol" class="form-control" />
-											<span class="input-group-text">h</span>
 										</div>
 									</div>
 
@@ -223,6 +191,50 @@
 										</div>
 									</div>
 								</div>
+								<div class="mb-3 text-center border-top">
+									<button type="button" class="btn btn-link text-decoration-none fw-bold" @onclick="AlternarOpcoesAvancadas">
+										<i class="bi @(mostrarAvancadas ? "bi-chevron-up" : "bi-chevron-down") me-1"></i>
+										@(mostrarAvancadas ? "Ocultar configurações avançadas" : "Mostrar configurações avançadas")
+									</button>
+								</div>
+								@if (mostrarAvancadas)
+								{
+									<div class="p-3 bg-light border rounded mb-3">
+
+										<div class="mb-3">
+											<label class="form-label fw-bold">Temperatura Nominal (NOCT):</label>
+											<div class="input-group">
+												<InputNumber @bind-Value="PainelTemp.Noct" min="0" max="100" class="form-control" />
+												<span class="input-group-text">°C</span>
+											</div>
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label fw-bold">Eficiência do Painel Solar:</label>
+											<div class="input-group">
+												<InputNumber @bind-Value="PainelTemp.EficNominal" class="form-control" />
+												<span class="input-group-text">%</span>
+											</div>
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label fw-bold">Coeficiente de perda por calor (Pmpp):</label>
+											<div class="input-group">
+												<InputNumber @bind-Value="PainelTemp.Pmpp" step="0.01" class="form-control" />
+												<span class="input-group-text">%</span>
+											</div>
+										</div>
+
+										<div class="mb-3">
+											<label class="form-label fw-bold">Horas de Sol Pleno (HSP):</label>
+											<div class="input-group">
+												<InputNumber @bind-Value="PainelTemp.HorasSol" class="form-control" />
+												<span class="input-group-text">h</span>
+											</div>
+										</div>
+									</div>
+								}
+								
 								<div class="modal-footer">
 									<button type="button" class="btn btn-outline-danger" @onclick="FecharModal">Cancelar</button>
 									<button type="submit" class="btn btn-outline-primary">Salvar</button>
@@ -309,6 +321,10 @@
 		<h5 class="text-danger d-flex align-items-center">
 			<span class="me-2" style="font-size: 1.5em;">&#33;</span>
 			<span>Atenção! Resultados estimados.</span>
+			<span class="ms-auto">
+				<button class="btn btn-outline-danger" @onclick="() => { AbrirMenuPainel(); ConfigPainel = true; }">Editar variáveis.</button>
+			</span>
+			
 			@if (ItensCenario.Any() || ConsumoMes > 0)
 			{
 				<span class="ms-auto">
@@ -352,11 +368,9 @@
 				</div>
 			</div>
 
-			<div class="alert alert-secondary py-2" style="font-size: 0.9rem;">
-				<strong>Por que @PlacasCalculadas e não @(Math.Floor(PlacasExatas))?</strong><br>
-				O cálculo exato seria @PlacasExatas, mas arredondamos para cima. Isso compensa dias nublados (HSP: @PainelDados.HorasSol) e perdas por eficiência (@PainelDados.Eficiencia%).
-				<button class="btn btn-outline-danger btn-sm py-0" @onclick="() => { AbrirMenuPainel(); ConfigPainel = true; }">Editar variáveis.</button>
-			</div>
+			<a href="javascript:void(0)" class="text-success text-decoration-underline small mb-3 d-inline-block" @onclick="AbrirModalExplicacao">
+				<h6><i class="bi bi-question-circle"></i> Por que @PlacasCalculadas painéis é a quantidade ideal?</h6>
+			</a>
 
 			@if (ItensCenario.Any() && ConsumoMes == 0)
 			{
@@ -395,22 +409,27 @@
 				</div>
 			}
 
-			<h5 class="mt-4">Tempo de Retorno do Investimento (Payback)</h5>
+			<h5>Tempo de Retorno do Investimento (Payback)</h5>
 			@if (TotalCustoMensal > 0)
 			{
-				<div class="alert alert-success">
+				<div class="card bg-success bg-opacity-10 border-success border-opacity-25 p-3 rounded">
+
 					<p class="mb-2">
-						Para <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W e custo total de @((PainelDados.Custo * PlacasCalculadas).ToString("C2", new CultureInfo("pt-br"))), o investimento se pagaria em aproximadamente:
+						Para cobrir o seu consumo, o sistema ideal requer <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W.
 					</p>
 
-					<h4 class="text-success fw-bold">@FormatarTempoRetorno(TotalCustoMensal)</h4>
+					<p class="mb-2">
+						Com um custo estimado de <strong>@((PainelDados.Custo * PlacasCalculadas).ToString("C2", new CultureInfo("pt-br")))</strong>, o investimento se pagaria em aproximadamente:
+					</p>
 
-					<p class="mb-2" style="font-size: 0.9rem;">
+					<h3 class="text-success fw-bold">@FormatarTempoRetorno(TotalCustoMensal)</h3>
+
+					<p class="mb-3" style="font-size: 0.9rem;">
 						Considerando uma economia na conta de luz de <strong>@Economia_Mensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
 					</p>
 
-					<button class="btn btn-outline-success btn-sm mt-2" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
-						<span class="bi bi-pencil"></span> Ajustar valores financeiros
+					<button class="btn btn-outline-success btn-sm mt-1" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
+						<span class="bi bi-pencil"></span> <strong>Ajustar valores financeiros</strong>
 					</button>
 				</div>
 			}
@@ -423,9 +442,119 @@
 			</p>
 		}
 	</div>
+
+	@if (mostrarModalExplicacao)
+	{
+		<div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);" @onclick="FecharModalExplicacao">
+			<div class="modal-dialog modal-dialog-centered modal-lg" @onclick:stopPropagation="true">
+				<div class="modal-content border-0 shadow">
+
+					<div class="modal-header bg-success text-white border-0">
+						<h5 class="modal-title fw-bold">
+							<i class="bi bi-lightbulb-fill me-2"></i> O Segredo do Dimensionamento
+						</h5>
+						<button type="button" class="btn-close btn-close-white" aria-label="Close" @onclick="FecharModalExplicacao"></button>
+					</div>
+
+					<div class="modal-body p-4">
+
+						<p class="text-muted" style="text-align: justify;">
+							O cálculo exato seria @PlacasExatas, mas arredondamos para cima. Isso compensa dias nublados (HSP: @PainelDados.HorasSol) e perdas por eficiência (@PainelDados.Eficiencia%).
+						</p>
+
+						<p class="text-muted" style="text-align: justify;">
+							Nosso simulador calculou a quantidade de placas para que não houvesse geração desperdiçada de energia e a maior economia possível (mantendo apenas as taxas obrigatórias da concessionária).
+						</p>
+
+						<div class="bg-light p-3 rounded border mt-4 mb-3">
+							<h6 class="fw-bold mb-3 small text-uppercase text-secondary">A matemática:</h6>
+
+							<div class="mb-3">
+								<div class="d-flex justify-content-between small mb-1">
+									<span>Teto da sua Conta de Luz</span>
+									<span class="fw-bold text-dark">@(TotalCustoMensal.ToString("C2", new CultureInfo("pt-BR")))</span>
+								</div>
+								<div class="progress" style="height: 12px;">
+									<div class="progress-bar bg-secondary" role="progressbar" style="width: 100%"></div>
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<div class="d-flex justify-content-between small mb-1">
+									<span>
+										Economia Máxima <br>
+										<small class="text-muted">(Se você consumisse 100% da energia fotovoltaica de dia, sem enviar para a rede da concessionária)</small>
+									</span>
+									<span class="fw-bold text-success">@(((decimal)Energia_fv() * Tarifa_Plena()).ToString("C2", new CultureInfo("pt-BR")))</span>
+								</div>
+								<div class="progress" style="height: 12px;">
+									<div class="progress-bar bg-success opacity-75" role="progressbar" style="width: @(CalcularPorcentagemEconomiaTeorica())%"></div>
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<div class="d-flex justify-content-between small mb-1">
+									<span>
+										Economia Real <br>
+										<small class="text-muted">(Considerando as perdas do excedente enviado para a rede)</small>
+									</span>
+									<span class="fw-bold text-success">@(Economia_Mensal().ToString("C2", new CultureInfo("pt-BR")))</span>
+								</div>
+								<div class="progress" style="height: 12px;">
+									<div class="progress-bar bg-success" role="progressbar" style="width: @(CalcularPorcentagemEconomia())%"></div>
+								</div>
+							</div>
+
+							<div class="alert alert-light border shadow-sm py-2 px-3 mt-4 mb-0 d-flex align-items-center" style="font-size: 0.85rem;">
+								<i class="bi bi-sliders text-success fs-4 me-3"></i>
+								<div>
+									<strong>Dica:</strong> Você pode simular o impacto do seu perfil de consumo alterando o <strong>Fator de Simultaneidade</strong> clicando no botão <em>"Editar variáveis"</em>.
+								</div>
+							</div>
+						</div>
+
+
+						<div class="alert alert-warning border-warning border-opacity-25 py-2 px-3 d-flex align-items-start mb-0" style="font-size: 0.85rem;">
+							<i class="bi bi-exclamation-triangle-fill text-warning me-2 mt-1"></i>
+							<span>
+								<strong>E se eu adicionar mais placas?</strong> O custo de instalação aumentará, mas a sua economia continuará limitada ao valor da sua conta. A energia extra será "doada" para a rede pública, atrasando o retorno do seu investimento inicial.
+							</span>
+						</div>
+					</div>
+
+					<div class="modal-footer border-0">
+						<button type="button" class="btn btn-success px-4" @onclick="FecharModalExplicacao">Entendi!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
 </div>
 
 @code {
+	private bool mostrarModalExplicacao = false;
+
+	private void AbrirModalExplicacao() => mostrarModalExplicacao = true;
+	private void FecharModalExplicacao() => mostrarModalExplicacao = false;
+
+	private double CalcularPorcentagemEconomia()
+	{
+		if (TotalCustoMensal <= 0) return 0;
+
+		double porcentagem = (double)(Economia_Mensal() / TotalCustoMensal) * 100;
+		return Math.Min(porcentagem, 100);
+	}
+
+	private double CalcularPorcentagemEconomiaTeorica()
+	{
+		if (TotalCustoMensal <= 0) return 0;
+
+		decimal economiaSemFioB = (decimal)Energia_fv() * Tarifa_Plena();
+
+		double porcentagem = (double)(economiaSemFioB / TotalCustoMensal) * 100;
+		return Math.Min(porcentagem, 100);
+	}
+
 	private List<ItemCenario> ItensCenario = new();
 	private ItemCenario ItemTemp = new();
 
@@ -443,7 +572,6 @@
 
 	double TotalKwhMensal => ConsumoMes > 0 ? ConsumoMes : ItensCenario.Sum(i => i.CalculoKwh());
 	double TotalKwhMensalAlvo => Math.Max(0, TotalKwhMensal - PainelDados.TaxaMinima);
-	// double TotalKwhDiario => TotalKwhMensal / 30.0;
 	double TotalKwhDiario => TotalKwhMensal / 30.0;
 	double TotalKwhDiarioAlvo => TotalKwhMensalAlvo / 30.0;
 
@@ -456,9 +584,16 @@
 
 	bool TemDados => ItensCenario.Any() || ConsumoMes > 0; //Verifica se há algum dado para mostrar
 
+	private bool mostrarAvancadas = false;
+
 	private string ComodoAtual { get; set; } = "Padaria";
 
 	private void MudarComodo(string novoComodo) => ComodoAtual = novoComodo;
+
+	private void AlternarOpcoesAvancadas()
+	{
+		mostrarAvancadas = !mostrarAvancadas;
+	}
 
 	void AbrirMenu(ItemCenario aparelho)
 	{
@@ -490,7 +625,7 @@
 			HorasSol = PainelDados.HorasSol,
 			TempAmb = PainelDados.TempAmb,
 			Pmpp = PainelDados.Pmpp,
-			FatorSim = PainelDados.FatorSim,
+			FatorSimB = PainelDados.FatorSimB,
 			Custo = PainelDados.Custo,
 			TarifaEnergia = PainelDados.TarifaEnergia,
 			TUSD = PainelDados.TUSD,
@@ -552,25 +687,20 @@
 
 	// Cálculo da quantidade de painéis solares
 	public double TempOperacao() => PainelDados.TempAmb + ((PainelDados.Noct - 20.0) / 800.0) * 1000.0;
-	// public double EficienciaReal() => PainelDados.EficNominal - ((PainelDados.Pmpp / 100) * (TempOperacao() - 25.0));
 	public double EficienciaReal() => PainelDados.EficNominal * (1.0 - ((PainelDados.Pmpp / 100.0) * (TempOperacao() - 25.0)));
 	public double GeracaoPorDia() => (PainelDados.Potencia / 1000.0) * (EficienciaReal() / PainelDados.EficNominal) * PainelDados.HorasSol * (PainelDados.Eficiencia / 100);
 	public double NumPlacas(double ConsumoDiario) => Math.Round(ConsumoDiario / (GeracaoPorDia()), 2);
 
 	//Cálculo de PayBack
 
-	// public double Energia_fv() => GeracaoPorDia() * NumPlacas(TotalKwhDiario) * 30;
 	public double Energia_fv() => GeracaoPorDia() * PlacasCalculadas * 30.0;
-	public double Energia_fv_consumida() => PainelDados.FatorSim * Energia_fv();
-	public double Energia_injetada() => (1 - PainelDados.FatorSim) * Energia_fv();
-	// public decimal Tarifa_energia_injetada() => PainelDados.TarifaEnergia - (PainelDados.TUSD * (decimal)PainelDados.ProgressaoFioB);
+	public double Energia_fv_consumida() => (PainelDados.FatorSimB / 100) * Energia_fv();
+	public double Energia_injetada() => (1 - (PainelDados.FatorSimB / 100)) * Energia_fv();
 	public decimal Tarifa_Plena() => PainelDados.TarifaEnergia + PainelDados.TUSD;
 	public decimal Tarifa_energia_injetada() => Tarifa_Plena() - (PainelDados.TUSD * (decimal)PainelDados.ProgressaoFioB);
-	// public decimal Economia_Mensal() => ((decimal)Energia_fv_consumida() * PainelDados.TarifaEnergia) + ((decimal)Energia_injetada() * Tarifa_energia_injetada());
 	public decimal Economia_Mensal() => ((decimal)Energia_fv_consumida() * Tarifa_Plena()) + ((decimal)Energia_injetada() * Tarifa_energia_injetada());
 	public int CalculoRetornoMeses(decimal TotalCustoMensal)
 	{
-		// if (CalculoCustoMensal() <= 0) return 0;
 		if (TotalCustoMensal <= 0 || Economia_Mensal() <= 0) return 0;
 		decimal custoTotalSistema = PainelDados.Custo * PlacasCalculadas;
 

@@ -14,8 +14,10 @@ namespace SimuladorEnergiaWASM.Models
         public double EficNominal { get; set; } = 21.5;
         [Range(0, 1)]
         public double Pmpp { get; set; } = 0.350; // Coeficiente de Temperatura do Pmpp/Perda por calor (valor em porcentagem)
-        [Range(0.01, 1.0)]
-        public double FatorSim { get; set; } = 0.350;
+        [Range(1, 100)]
+        public double FatorSimA { get; set; } = 35; // Residencial
+        [Range(1, 100)]
+        public double FatorSimB { get; set; } = 60; // Comercial
         public decimal TUSD { get; set; } = 0.55m; // muda conforme a quantidade de energia consumida no mês (100, 200, 400kWh, etc...)
         [Range(0.1, 1.0)]
         public double ProgressaoFioB { get; set; } = 0.60;
