@@ -368,9 +368,6 @@
 				</div>
 			</div>
 
-			<a href="javascript:void(0)" class="text-success text-decoration-underline small mb-3 d-inline-block" @onclick="AbrirModalExplicacao">
-				<h6><i class="bi bi-question-circle"></i> Por que @PlacasCalculadas painéis é a quantidade ideal?</h6>
-			</a>
 
 			@if (ItensCenario.Any() && ConsumoMes == 0)
 			{
@@ -408,29 +405,53 @@
 					</table>
 				</div>
 			}
-
-			<h5>Tempo de Retorno do Investimento (Payback)</h5>
-			@if (TotalCustoMensal > 0)
+			@if (PlacasCalculadas > 0)
 			{
-				<div class="card bg-success bg-opacity-10 border-success border-opacity-25 p-3 rounded">
 
-					<p class="mb-2">
-						Para cobrir o seu consumo, o sistema ideal requer <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W.
+				<a href="javascript:void(0)" class="text-success text-decoration-underline small mb-3 d-inline-block" @onclick="AbrirModalExplicacao">
+					<h6><i class="bi bi-question-circle"></i> Por que @PlacasCalculadas painéis é a quantidade ideal?</h6>
+				</a>
+
+				<h5>Tempo de Retorno do Investimento (Payback)</h5>
+				@if (TotalCustoMensal > 0)
+				{
+					<div class="card bg-success bg-opacity-10 border-success border-opacity-25 p-3 rounded">
+
+						<p class="mb-2">
+							Para cobrir o seu consumo, o sistema ideal requer <strong>@PlacasCalculadas placas</strong> de @PainelDados.Potencia W.
+						</p>
+
+						<p class="mb-2">
+							Com um custo estimado de <strong>@((PainelDados.Custo * PlacasCalculadas).ToString("C2", new CultureInfo("pt-br")))</strong>, o investimento se pagaria em aproximadamente:
+						</p>
+
+						<h3 class="text-success fw-bold">@FormatarTempoRetorno(TotalCustoMensal)</h3>
+
+						<p class="mb-3" style="font-size: 0.9rem;">
+							Considerando uma economia na conta de luz de <strong>@Economia_Mensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
+						</p>
+
+						<button class="btn btn-outline-success btn-sm mt-1" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
+							<span class="bi bi-pencil"></span> <strong>Ajustar valores financeiros</strong>
+						</button>
+					</div>
+				}
+			}
+			else
+			{
+				<div class="alert alert-warning border-warning border-opacity-25 shadow-sm p-4 text-center mt-3">
+					<i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 2.5rem;"></i>
+					<h4 class="fw-bold mt-2 text-dark">Sistema Solar Não Recomendado</h4>
+
+					<p class="mb-0 text-muted" style="font-size: 0.95rem;">
+						O seu consumo atual (<strong>@ConsumoMes kWh</strong>) é inferior ou igual à <strong>Taxa Mínima de Disponibilidade</strong> da concessionária.
 					</p>
 
-					<p class="mb-2">
-						Com um custo estimado de <strong>@((PainelDados.Custo * PlacasCalculadas).ToString("C2", new CultureInfo("pt-br")))</strong>, o investimento se pagaria em aproximadamente:
+					<hr class="border-warning opacity-50 my-3">
+
+					<p class="small text-muted mb-0 text-start">
+						<strong>O que isso significa?</strong> Por lei, as concessionárias cobram um valor mínimo mensal apenas por você estar conectado à rede elétrica. Como a energia solar não pode abater essa taxa mínima, instalar painéis solares no seu caso não geraria nenhuma economia financeira na sua conta.
 					</p>
-
-					<h3 class="text-success fw-bold">@FormatarTempoRetorno(TotalCustoMensal)</h3>
-
-					<p class="mb-3" style="font-size: 0.9rem;">
-						Considerando uma economia na conta de luz de <strong>@Economia_Mensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
-					</p>
-
-					<button class="btn btn-outline-success btn-sm mt-1" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
-						<span class="bi bi-pencil"></span> <strong>Ajustar valores financeiros</strong>
-					</button>
 				</div>
 			}
 
