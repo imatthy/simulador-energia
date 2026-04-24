@@ -29,7 +29,7 @@ namespace SimuladorEnergiaWASM.Models
         [Range(0, 50)]
         public int TempAmb { get; set; } = 20;
         [Range(0.01, 1.0)]
-        public decimal TarifaEnergia { get; set; } = 0.38m;
+        public decimal TarifaEnergia { get; set; } = 0.37m;
         [Range(0, 200)]
         public int TaxaMinima { get; set; } = 30;
         public double CalculoKwh() => (Potencia * HorasSol * 30) / 1000.0;

@@ -343,7 +343,11 @@
 							<h6 class="card-title text-muted">Consumo Mensal</h6>
 							<h4>@TotalKwhMensal.ToString("N2") kWh</h4>
 							<small class="d-block">@TotalKwhDiario.ToString("N2") kWh/dia</small>
-							<small class="d-block" style="color: darkcyan">Taxa Mínima: @PainelDados.TaxaMinima.ToString("N2") kWh</small>
+							<small class="d-block" style="color: darkcyan">Taxa Mínima: @PainelDados.TaxaMinima.ToString("N2") kWh
+								<a href="javascript:void(0)" class="text-success text-decoration-underline small d-inline-block" @onclick="AbrirModalExplicacaoTaxa">
+									<i class="bi bi-question-circle"></i>
+								</a>
+							</small>
 						</div>
 					</div>
 				</div>
@@ -427,8 +431,11 @@
 
 						<h3 class="text-success fw-bold">@FormatarTempoRetorno(TotalCustoMensal)</h3>
 
-						<p class="mb-3" style="font-size: 0.9rem;">
-							Considerando uma economia na conta de luz de <strong>@Economia_Mensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
+						<p class="mb-2" style="font-size: 0.9rem;">
+							Considerando uma economia estimada de <strong>@Economia_Mensal().ToString("C2", new CultureInfo("pt-BR"))</strong> por mês.
+							<a href="javascript:void(0)" class="text-success text-decoration-underline ms-1" @onclick="AbrirModalExplicacao">
+								Entenda essa estimativa
+							</a>
 						</p>
 
 						<button class="btn btn-outline-success btn-sm mt-1" @onclick="() => { AbrirMenuPainel(); ConfigPainelFinanceiro = true; }">
@@ -550,13 +557,79 @@
 			</div>
 		</div>
 	}
+	@if (mostrarModalExplicacaoTaxa)
+	{
+		<div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);" @onclick="FecharModalExplicacaoTaxa">
+			<div class="modal-dialog modal-dialog-centered modal-lg" @onclick:stopPropagation="true">
+				<div class="modal-content border-0 shadow">
+
+					<div class="modal-header bg-warning border-0">
+						<h5 class="modal-title fw-bold text-dark">
+							<i class="bi bi-building-fill-exclamation me-2"></i> O que é a Taxa Mínima?
+						</h5>
+						<button type="button" class="btn-close" aria-label="Close" @onclick="FecharModalExplicacaoTaxa"></button>
+					</div>
+
+					<div class="modal-body p-4">
+						<h6 class="fw-bold text-dark mb-3">O "Aluguel" da Rede Elétrica</h6>
+
+						<p class="text-muted" style="text-align: justify;">
+							A Taxa Mínima (ou Custo de Disponibilidade) é um valor mínimo obrigatório pelo "aluguel" dos postes, cabos e transformadores na sua rua, garantindo que a energia chegue até você quando o sol se põe.
+						</p>
+
+						<div class="bg-light p-3 rounded border mt-4 mb-3">
+							<h6 class="fw-bold mb-3 small text-uppercase text-secondary">A regra da ANEEL: Pisos de Cobrança</h6>
+
+							<ul class="list-group list-group-flush mb-0 small">
+								<li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0">
+									<span><i class="bi bi-plug text-muted me-2"></i> <strong>Rede Monofásica</strong></span>
+									<span class="badge bg-secondary rounded-pill">Paga no mínimo 30 kWh</span>
+								</li>
+								<li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0">
+									<span><i class="bi bi-plug-fill text-muted me-2"></i> <strong>Rede Bifásica</strong></span>
+									<span class="badge bg-secondary rounded-pill">Paga no mínimo 50 kWh</span>
+								</li>
+								<li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0 border-bottom-0">
+									<span><i class="bi bi-lightning-charge-fill text-muted me-2"></i> <strong>Rede Trifásica</strong></span>
+									<span class="badge bg-secondary rounded-pill">Paga no mínimo 100 kWh</span>
+								</li>
+							</ul>
+							<div class="alert alert-light border shadow-sm py-2 px-3 mt-4 mb-0 d-flex align-items-center" style="font-size: 0.85rem;">
+								<i class="bi bi-sliders text-success fs-4 me-3"></i>
+								<div>
+									<strong>Dica:</strong> Você pode alterar a <strong>taxa mínima</strong> conforme a sua residência, comércio ou empresao clicando no botão <em>"Ajustar valores financeiros"</em>.
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="alert alert-warning border-warning border-opacity-25 py-2 px-3 d-flex align-items-start mb-0" style="font-size: 0.85rem;">
+							<i class="bi bi-info-circle-fill text-warning me-2 mt-1"></i>
+							<span>
+								<strong>Resumindo:</strong> Nenhuma conta de luz no Brasil chega a <strong>R$ 0,00</strong>. Mesmo gerando 100% da energia que você consome através das placas solares, a concessionária ainda cobrará esse valor mínimo de disponibilidade no final do mês.
+							</span>
+						</div>
+					</div>
+
+					<div class="modal-footer border-0">
+						<button type="button" class="btn btn-warning px-4 fw-bold text-dark" @onclick="FecharModalExplicacaoTaxa">Entendi!</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
 </div>
 
 @code {
 	private bool mostrarModalExplicacao = false;
+	private bool mostrarModalExplicacaoTaxa = false;
+
 
 	private void AbrirModalExplicacao() => mostrarModalExplicacao = true;
 	private void FecharModalExplicacao() => mostrarModalExplicacao = false;
+	private void AbrirModalExplicacaoTaxa() => mostrarModalExplicacaoTaxa = true;
+	private void FecharModalExplicacaoTaxa() => mostrarModalExplicacaoTaxa = false;
 
 	private double CalcularPorcentagemEconomia()
 	{
